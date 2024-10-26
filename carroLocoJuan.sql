@@ -88,3 +88,7 @@ CREATE TABLE IF NOT EXISTS vehiculos
     fec_matricula DATE NOT NULL,
 );
 
+CREATE TABLE IF NOT EXISTS vehiculosColor
+(
+    
+);
