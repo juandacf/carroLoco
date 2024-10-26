@@ -78,11 +78,13 @@ CREATE TABLE IF NOT EXISTS clientes
     tel INTEGER NOT NULL,
     num_hijos SMALLINT NOT NULL,
     direccion_cliente VARCHAR NOT NULL,
+    id_usuario SMALLINT NOT NULL,
     PRIMARY KEY(id_cliente),
     FOREIGN KEY(id_ciudad)  REFERENCES ciudades(id_ciudad),
     FOREIGN KEY(id_tipoDocumento) REFERENCES tipoDocumento(id_tipoDocumento),
     FOREIGN KEY(id_ocupacion) REFERENCES ocupaciones(id_ocupacion),
-    FOREIGN KEY(id_profesion) REFERENCES profesiones (id_profesion)
+    FOREIGN KEY(id_profesion) REFERENCES profesiones(id_profesion),
+    FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
 );
 CREATE TABLE IF NOT EXISTS vehiculos
 (
@@ -98,7 +100,8 @@ CREATE TABLE IF NOT EXISTS vehiculos
     num_puertas SMALLINT NOT NULL,
     fec_importacion DATE NOT NULL,
     fec_matricula DATE NOT NULL,
-    PRIMARY KEY(id_placa)
+    id_vendedor INTEGER NOT NULL,
+    PRIMARY KEY(id_placa),
 );
 CREATE TABLE IF NOT EXISTS vendedores
 (
@@ -125,7 +128,9 @@ CREATE TABLE IF NOT EXISTS vendedores
     metaVentas INTEGER NOT NULL,
     numHijos SMALLINT NOT NULL,
     id_estadoCivil SMALLINT NOT NULL,
+
     PRIMARY KEY(id_vendedor)
+    FOREIGN KEY(id_estadoCivil) REFERENCES estadosCiviles(id_estadoCivil)
 );
 CREATE TABLE IF NOT EXISTS proveedores
 (
@@ -137,7 +142,10 @@ CREATE TABLE IF NOT EXISTS proveedores
     telefono INTEGER NOT NULL,
     direccion VARCHAR NOT NULL,
     id_tipoDocumento VARCHAR NOT NULL,
+    id_usuario SMALLINT NOT NULL,
     PRIMARY KEY(id_proveedor)
+    FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
+
 );
 CREATE TABLE IF NOT EXISTS vehiculosColor
 (
@@ -147,7 +155,14 @@ CREATE TABLE IF NOT EXISTS vehiculosColor
     FOREIGN KEY(id_placa)  REFERENCES vehiculos(id_placa),
     FOREIGN KEY(id_color) REFERENCES colores(id_color)
 );
-
+CREATE TABLE IF NOT EXISTS vehiculosVendedor
+(
+    id_placa VARCHAR NOT NULL,
+    id_vendedor INTEGER NOT NULL,
+    PRIMARY KEY(id_placa, id_vendedor),
+    FOREIGN KEY(id_placa) REFERENCES vehiculos(id_placa),
+    FOREIGN KEY(id_vendedor) REFERENCES vendedores(id_vendedores)
+);
 CREATE TABLE IF NOT EXISTS bancosProveedor
 (
     id_proveedor SMALLINT NOT NULL,
@@ -157,3 +172,22 @@ CREATE TABLE IF NOT EXISTS bancosProveedor
     FOREIGN KEY(id_proveedor) REFERENCES proveedores(id_proveedor),
     FOREIGN KEY(id_banco) REFERENCES bancos(id_banco)
 );
+CREATE TABLE IF NOT EXISTS clientesVehiculos 
+(
+    id_cliente INTEGER NOT NULL,
+    id_placa VARCHAR NOT NULL,
+    PRIMARY KEY(id_cliente, id_placa),
+    FOREIGN KEY(id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY(id_placa) REFERENCES vehiculos(id_placa)
+);
+CREATE TABLE IF NOT EXISTS vehiculosProveedor 
+(
+    id_placa VARCHAR NOT NULL,
+    id_proveedor SMALLINT NOT NULL,
+    PRIMARY KEY(id_placa, id_proveedor),
+    FOREIGN KEY(id_placa) REFERENCES vehiculos(id_placa),
+    FOREIGN KEY(id_proveedor) REFERENCES proveedores(id_proveedor)
+);
+
+
+
