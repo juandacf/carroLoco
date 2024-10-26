@@ -1,3 +1,5 @@
+
+-- FALTA UNIFICAR EL TIPO DE DATO DE LAS LLAVES PRIMARIAS 
 CREATE TABLE IF NOT EXISTS ciudades
 (
     id_ciudad INTEGER NOT NULL,
@@ -57,6 +59,16 @@ CREATE TABLE IF NOT EXISTS paises
     nom_pais VARCHAR NOT NULL,
     PRIMARY KEY(id_pais)
 );
+CREATE TABLE IF NOT EXISTS usuarios 
+(
+    id_usuario SMALLINT NOT NULL,
+    pass_usuario PASSWORD NOT NULL,
+    mail_user VARCHAR NOT NULL,
+    tel_user INTEGER NOT NULL
+    PRIMARY KEY(id_usuario)
+);
+
+
 CREATE TABLE IF NOT EXISTS clientes
 (
     id_cliente INTEGER NOT NULL,
@@ -86,9 +98,30 @@ CREATE TABLE IF NOT EXISTS vehiculos
     num_puertas SMALLINT NOT NULL,
     fec_importacion DATE NOT NULL,
     fec_matricula DATE NOT NULL,
+    PRIMARY KEY(id_placa)
 );
-
+CREATE TABLE IF NOT EXISTS proveedores
+(
+    id_proveedor VARCHAR NOT NULL,
+    nombre VARCHAR NOT NULL,
+    apellido  VARCHAR NOT NULL,
+    correo VARCHAR NOT NULL,
+    id_pais VARCHAR NOT NULL,
+    telefono INTEGER NOT NULL,
+    direccion VARCHAR NOT NULL,
+    id_tipoDocumento VARCHAR NOT NULL,
+    PRIMARY KEY(id_proveedor)
+);
 CREATE TABLE IF NOT EXISTS vehiculosColor
 (
-    
+    id_placa VARCHAR NOT NULL,
+    id_color SMALLINT NOT NULL,
+    PRIMARY KEY (id_placa,id_color),
+    FOREIGN KEY(id_placa)  REFERENCES vehiculos(id_placa),
+    FOREIGN KEY(id_color) REFERENCES colores(id_color)
 );
+
+CREATE TABLE IF NOT EXISTS vehiculosProveedor 
+(
+    id_
+)
