@@ -100,9 +100,36 @@ CREATE TABLE IF NOT EXISTS vehiculos
     fec_matricula DATE NOT NULL,
     PRIMARY KEY(id_placa)
 );
+CREATE TABLE IF NOT EXISTS vendedores
+(
+    id_vendedor INTEGER NOT NULL,
+    id_nomVendedor VARCHAR NOT NULL,
+    id_apellidoVendedor VARCHAR NOT NULL,
+    id_mailVendedor VARCHAR NOT NULL,
+    id_fechaNacimiento DATE NOT NULL,
+    sexo VARCHAR NOT NULL,
+    salarioBase INTEGER NOT NULL,
+    cuentaNomina INTEGER NOT NULL,
+    acumuladoVentas INTEGER NOT NULL,
+    marcasVendidas VARCHAR NOT NULL,
+    telefono INTEGER NOT NULL,
+    direccion VARCHAR NOT NULL,
+    numHijos SMALLINT NOT NULL,
+    contactoEmergencia INTEGER NOT NULL,
+    fechaVinculacion DATE NOT NULL,
+    horaIngreso TIME NOT NULL, 
+    horaSalida TIME NOT NULL,
+    diaDescanso SMALLINT NOT NULL,
+    valorComisiones INTEGER NOT NULL,
+    porcentajeComision  SMALLINT NOT NULL,
+    metaVentas INTEGER NOT NULL,
+    numHijos SMALLINT NOT NULL,
+    id_estadoCivil SMALLINT NOT NULL,
+    PRIMARY KEY(id_vendedor)
+);
 CREATE TABLE IF NOT EXISTS proveedores
 (
-    id_proveedor VARCHAR NOT NULL,
+    id_proveedor SMALLINT NOT NULL,
     nombre VARCHAR NOT NULL,
     apellido  VARCHAR NOT NULL,
     correo VARCHAR NOT NULL,
@@ -121,7 +148,12 @@ CREATE TABLE IF NOT EXISTS vehiculosColor
     FOREIGN KEY(id_color) REFERENCES colores(id_color)
 );
 
-CREATE TABLE IF NOT EXISTS vehiculosProveedor 
+CREATE TABLE IF NOT EXISTS bancosProveedor
 (
-    id_
-)
+    id_proveedor SMALLINT NOT NULL,
+    id_banco SMALLINT NOT NULL,
+    num_cuenta INTEGER NOT NULL,
+    PRIMARY KEY(id_proveedor, id_banco),
+    FOREIGN KEY(id_proveedor) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY(id_banco) REFERENCES bancos(id_banco)
+);
